@@ -1,0 +1,43 @@
+<!--
+    Author: Tyler Goetz
+    Purpose: Create fibonacci sequence using recursive alogrithm, dynamic programming 
+             concepts, angularJS, and memoization.
+    Date: 4/5/19
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <title>title</title>
+  </head>
+  <body>
+        <div ng-app="myApp" ng-controller="myCtrl">
+            <h3> Memoized Recursive Fibonacci Seq in Angular JS (Dynamic Programming)</h3>
+            N: <input type="number" ng-model="N"><br>
+            <br>
+            Fibonacci Number: {{fib(N)}}
+        </div>
+        <script>
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', ['$scope', function($scope) {
+                $scope.N = 0;
+                /*Name: fib
+                 *Purpose: perform fibonacci sequence, using memoization for effeciency
+                 *Inputs:  int - n        : integer n represents the number you'd like to perform the fibonacci algorithm on
+                 *         {} array - memo: an array of integers used to store computations made during the recusive call stack 
+                 *Outputs: int || memo[n] : int - the finalized return value after the recursive call stack, memo[n] store the 
+                 *         computed int in the memo to speed up sucessive recursive calls
+                */
+                $scope.fib = function(n, memo){
+                    memo = memo || {};
+                    if(memo[n]) return memo[n];
+                    if(n <= 1) return 1;
+                    //if(n < 1) return -memo[n] = $scope.fib((-1)*n-1, memo) + $scope.fib((-1)*n-2, memo)
+                    return memo[n] =  $scope.fib(n-1, memo) + $scope.fib(n-2, memo)
+                };
+            }]);
+        </script>
+  </body>
+</html>
